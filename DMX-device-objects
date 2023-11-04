@@ -1,0 +1,77 @@
+DMX Devices
+
+var dmx_fixtures = [
+	{
+		// Alexa, Turn [on/off] the wolf
+		// Alexa, Turn [on/off] the ceiling
+		id: "adj"
+		name: "ADJ moving head",
+		type: "moving_head",
+
+		channel:1,
+		channel-mode:18,
+		channel-map: "pan,tilt,color,gobo static,gobo rotating,gobo speed,prism,prism speed,shutter strobe,dim,focus,auto focus,zoom,shows,show speed,dimmer mode,pan tilt speed,function"
+		preset: {
+			"off": [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
+			"wolf": [8,208,103,1,53,180,0,125,255,255,81,1,255,0,0,0,0,0],
+			"ceiling": [161,21,110,37,47,181,36,131,255,255,255,0,0,0,0,0,0,0]
+			},
+
+		model: "ADJ Focus Spot 3Z",
+		type: "moving_head",
+		manual: "https://d295jznhem2tn9.cloudfront.net/ItemRelatedFiles/8905/focus_spot_three_z.pdf"
+	},{
+		// Alexa, Turn [on/off] the wolf
+		// Alexa, Turn [on/off] the ceiling
+		id: "spot"
+		name: "Spotlight Moving Head",
+
+		channel:19,
+		channel-mode:9,
+		channel-map: "pan,tilt,color,gobo,strobe,dim,pan tilt speed,shows,pan tilt running,"
+		preset: {
+			"off": [0,0,0,0,0,0,0,0,0],
+			"wolf": [0,0,0,0,0,0,0,0,0],
+			"coffee table": [0,0,0,0,0,0,0,0,0]
+			},
+
+		model: "XPCLEOYZ 90W",
+		type: "moving_head",
+		manual: "https://forums.pioneerdj.com/hc/en-us/community/posts/7765303791769-Fixture-Request-XPCLEOYZ-60W-90W-LED-Moving-Head-Light"
+	}
+];
+
+
+
+var dmx_scenes = [
+	{
+		// Alexa, Turn [on/off] the wolf
+		id:"wolf",
+		name:"Wolf"
+		component:[{
+				fixture:"adj",
+				preset:"wolf"
+			},{
+				device:"spot",
+				preset:"wolf"
+			}]
+
+	},{
+		// Alexa, Turn [on/off] the coffee table
+		id:"coffee-table",
+		name:"Coffee Table"
+		fixtures:[{
+				fixture:"spot",
+				preset:"coffee table"
+			}]			
+	},{
+		// Alexa, Turn [on/off] the ceiling
+		id:"ceiling",
+		name:"Ceiling"
+		command_on:[{
+				fixture:"adj",
+				preset:"ceiling"
+			}]
+
+	}
+];

@@ -1,0 +1,112 @@
+{
+	"info": {
+		"_postman_id": "c9911618-66bb-45c7-9818-907da0113cd6",
+		"name": "DMX Controller",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17145118"
+	},
+	"item": [
+		{
+			"name": "updateFixture",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://dmx.local/updateFixture?id=spot&preset=wolf",
+					"protocol": "http",
+					"host": [
+						"dmx",
+						"local"
+					],
+					"path": [
+						"updateFixture"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "spot"
+						},
+						{
+							"key": "preset",
+							"value": "wolf"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateScene",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://dmx.local/updateScene?id=Wolf&command=on",
+					"protocol": "http",
+					"host": [
+						"dmx",
+						"local"
+					],
+					"path": [
+						"updateScene"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "Wolf"
+						},
+						{
+							"key": "command",
+							"value": "on"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getScene",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://dmx.local/getScene",
+					"protocol": "http",
+					"host": [
+						"dmx",
+						"local"
+					],
+					"path": [
+						"getScene"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getFixturePreset",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://dmx.local/getFixturePreset?id=adj",
+					"protocol": "http",
+					"host": [
+						"dmx",
+						"local"
+					],
+					"path": [
+						"getFixturePreset"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "adj"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

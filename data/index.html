@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&display=swap">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Apollo DMX Controller</h1>
+        
+        <!-- Scenes Section -->
+        <div class="scenes-section">
+            <h2>Scenes</h2>
+            <button class="toggle-button" id="scene-wolf" onclick="updateScene('Wolf')">Wolf</button>
+            <button class="toggle-button" id="scene-hangout" onclick="updateScene('Hangout')">Hangout</button>
+            <button class="toggle-button" id="scene-manual" onclick="updateScene('Manual')">Manual</button>
+        </div>
+        
+         <!-- Fixture Section -->
+        <div class="fixture-section">
+            <h2>Fixtures</h2>
+            <table class="fixture-table"><tr>
+                <td><h3>ADJ moving head</h3>
+                    <button class="toggle-button" id="fixture-adj-off" onclick="updateFixture('adj', 'off')">off</button><br>
+                    <button class="toggle-button" id="fixture-adj-wolf" onclick="updateFixture('adj', 'wolf')">wolf</button><br>
+                    <button class="toggle-button" id="fixture-adj-ceiling" onclick="updateFixture('adj', 'ceiling')">ceiling</button>
+                </td>
+                <td><h3>Spotlight Moving Head</h3>
+                    <button class="toggle-button" id="fixture-spot-off" onclick="updateFixture('spot', 'off')">off</button><br>
+                    <button class="toggle-button" id="fixture-spot-wolf" onclick="updateFixture('spot', 'wolf')">wolf</button><br>
+                    <button class="toggle-button" id="fixture-spot-coffee table" onclick="updateFixture('spot', 'coffee table')">coffee table</button>
+                </td>
+            </tr></table>
+        </div>
+        
+<script>
+    const sceneButtons = document.querySelectorAll('.scenes-section .toggle-button');
+    const fixtureButtons = document.querySelectorAll('.fixture-section .toggle-button');
+
+    function updateSceneButtonState(activeScene) {
+        sceneButtons.forEach((button) => {
+            if (button.id === `scene-${activeScene.toLowerCase()}`) {
+                button.classList.add('selected');
+            } else {
+                button.classList.remove('selected');
+            }
+        });
+    }
+
+    function updateFixtureButtonState(fixtureId, activePreset) {
+        fixtureButtons.forEach((button) => {
+            if (button.id === `fixture-${fixtureId}-${activePreset}`) {
+                button.classList.add('selected');
+            } else {
+                button.classList.remove('selected');
+            }
+        });
+    }
+
+    // API URLs
+    const updateSceneURL = '/updateScene';
+    const getSceneURL = '/getScene';
+    const updateFixtureURL = '/updateFixture';
+
+
+    // Function to update the fixture preset
+    function updateFixture(fixtureId, preset) {
+        fetch(updateFixtureURL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `id=${fixtureId}&preset=${preset}`,
+        })
+        .then(response => response.text())
+        .then(data => {
+            console.log(data);
+            updateFixtureButtonState(fixtureId, preset); // Update the button state for the fixture
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+
+    // Function to update the active scene and scene buttons
+    function updateScene(sceneId) {
+        fetch(updateSceneURL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `id=${sceneId}&command=on`,
+        })
+        .then(response => response.text())
+        .then(data => {
+            console.log(data); // Log the response
+            updateSceneButtonState(sceneId)
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+
+    // Function to get the current scene id and update the button state
+    function getCurrentScene() {
+        fetch(getSceneURL)
+        .then(response => response.text())
+        .then(sceneId => {
+            console.log('Current Scene:', sceneId);
+            updateSceneButtonState(sceneId);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+
+    // Call the function to update the button state based on the active scene
+    getCurrentScene();
+
+
+</script>
+
+</body>
+</html>
