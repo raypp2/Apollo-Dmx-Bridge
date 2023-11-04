@@ -21,11 +21,22 @@ Intended to allow DMX fixtures to integrate into any home automation setup.
 - [SparkFun DMX Shield Library](https://github.com/sparkfun/SparkFunDMX)
 
 
-## How it works
+## Fixture config
 
-The `fixtureConfig.cpp` stores an array of fixtures and scenes. Each fixture can have an array of presets which is the value for each channel used by the fixture. The scenes specify a desired preset for each fixture. 
+The `fixtureConfig.cpp` stores an array of fixtures and scenes. Each fixture can have an array of presets which is the value for each channel used by the fixture. 
+The scenes specify a desired preset for each fixture. 
+See the comments within `fixtureConfig.h` for complete definitions.
+Note that some values are intended for future functionality (i.e. The link to the fixture manual).
+
+![Fixture configuration sample with definitions](documentation/fixture_config.jpg)
+
+
+## Use of web interface
 
 Access via web interface http://dmx.local 
+
+![Controller Web Interface](documentation/web_interface.png)
+
 
 ## Use of API
 
